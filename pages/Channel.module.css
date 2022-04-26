@@ -1,0 +1,29 @@
+.bannerContainer {
+    padding-left: 35pt;
+    padding-right: 35pt;
+}
+
+.Banner {
+    box-shadow: 0px 0px 30px rgb(177, 177, 177);
+    min-height: 45vh;
+    background-color: orangered;
+    width: 100%;
+    border-radius: 10pt;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.itemCard {
+    min-height: 300pt;
+    width: 20%;
+}
+
+.itemContentBox {
+    transition: 0.3s;
+    margin: 15pt;
+}
+.itemContentBox:hover {
+    box-shadow: 0px 0px 30px rgb(220,220,220);
+    transform: scale(1.05);
+}
