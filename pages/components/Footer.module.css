@@ -1,0 +1,10 @@
+.subscriptionField {
+    background-color: transparent;
+    padding-left: 20pt;
+    padding-right: 20pt;
+    padding-top: 5pt;
+    padding-bottom: 5pt;
+    margin-top: 10pt;
+    border: 1px solid transparent;
+    border-bottom: 1px solid rgb(70,70,70);
+}

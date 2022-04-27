@@ -1,0 +1,8 @@
+.dropDownItem {
+    transition: 0.1s;
+    padding: 10pt;
+}
+
+.dropDownItem:active {
+    background-color: #53bab9;
+}

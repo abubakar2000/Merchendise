@@ -6,8 +6,31 @@ export default class ItemDetails extends Component {
     constructor() {
         super()
         this.state = {
-            productItems: [1, 1, 1, 1, 1,]
+            productItems: [1, 2, 3, 4, 5,],
+            selectedProductIndex: 0,
+            sizes: ["S", "M", "L", "XL", "2XL"],
+            selectedSize: "S",
+            quantity: 0,
+            infoTab: ["Description", "Return Policy"],
+            infoTabIndex: 0,
         }
+    }
+    selectSize = (size) => {
+        this.setState({ selectedSize: size })
+    }
+    selectProduct = (prdIndex) => {
+        this.setState({ selectedProductIndex: prdIndex })
+    }
+    increment = () => {
+        this.setState({ quantity: this.state.quantity + 1 })
+    }
+    decrement = () => {
+        if (this.state.quantity !== 0) {
+            this.setState({ quantity: this.state.quantity - 1 })
+        }
+    }
+    setTab = (index) => {
+        this.setState({ infoTabIndex: index })
     }
     render() {
         return (
@@ -33,22 +56,15 @@ export default class ItemDetails extends Component {
                                         Choose Color (Beige)
                                     </div>
                                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start' }}>
-                                        <div style={{ border: "2px solid #53bab9" }}
-                                            className={style.optionBubble}>
-
-                                        </div>
-                                        <div className={style.optionBubble}>
-
-                                        </div>
-                                        <div className={style.optionBubble}>
-
-                                        </div>
-                                        <div className={style.optionBubble}>
-
-                                        </div>
-                                        <div className={style.optionBubble}>
-
-                                        </div>
+                                        {
+                                            this.state.productItems.map((prd, index) => (
+                                                <div
+                                                    onClick={() => this.selectProduct(index)}
+                                                    style={{ transition: '0.3s', border: `${index === this.state.selectedProductIndex ? "2px solid #53bab9" : "1px solid rgb(197, 197, 197)"}` }}
+                                                    className={style.optionBubble}>
+                                                </div>
+                                            ))
+                                        }
                                     </div>
                                 </div>
                                 <hr />
@@ -57,22 +73,17 @@ export default class ItemDetails extends Component {
                                         Choose Size
                                     </div>
                                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start' }}>
-                                        <div style={{ border: "2px solid #53bab9" }}
-                                            className={style.optionBubble}>
-                                            S
-                                        </div>
-                                        <div className={style.optionBubble}>
-                                            M
-                                        </div>
-                                        <div className={style.optionBubble}>
-                                            XL
-                                        </div>
-                                        <div className={style.optionBubble}>
-                                            XL
-                                        </div>
-                                        <div className={style.optionBubble}>
-                                            2XL
-                                        </div>
+                                        {
+                                            this.state.sizes.map(size => (
+                                                <div
+                                                    onClick={() => this.selectSize(size)}
+                                                    style={{ transition: '0.3s', border: `${size === this.state.selectedSize ? "2px solid #53bab9" : "1px solid rgb(197, 197, 197)"}`,
+                                                    color: `${size === this.state.selectedSize ? "#53bab9" : "rgb(197, 197, 197)"}` }}
+                                                    className={style.optionBubble}>
+                                                    {size}
+                                                </div>
+                                            ))
+                                        }
                                     </div>
                                 </div>
                                 <hr />
@@ -81,13 +92,15 @@ export default class ItemDetails extends Component {
                                         Qualtity
                                     </div>
                                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}>
-                                        <div style={{ display: 'flex', border: '1pt solid rgb(220,220,220)', borderRadius: '5pt' }}>
-                                            <div style={{ paddingLeft: '13pt', paddingRight: '13pt', paddingTop: '3pt', paddingBottom: '3pt', }}>-</div>
-                                            <div style={{ paddingLeft: '13pt', paddingRight: '13pt', paddingTop: '3pt', paddingBottom: '3pt', }}>2</div>
-                                            <div style={{ paddingLeft: '13pt', paddingRight: '13pt', paddingTop: '3pt', paddingBottom: '3pt', }}>+</div>
+                                        <div style={{ display: 'flex', border: '1pt solid rgb(220,220,220)', borderRadius: '5pt', cursor: 'default' }}>
+                                            <div className={style.qtyBtns}
+                                                onClick={this.decrement}>-</div>
+                                            <input className={style.qtyInput} value={this.state.quantity} />
+                                            <div className={style.qtyBtns}
+                                                onClick={this.increment}>+</div>
                                         </div>
-                                        <div style={{ marginLeft: '30pt' }}>
-                                            SIZE CHART
+                                        <div style={{ marginLeft: '30pt',display:'flex',alignItems:'center',justifyContent:'space-around' }}>
+                                           <img src='assets/chart.png' style={{height:'20pt'}}/> <div style={{marginLeft:'10pt'}}>SIZE CHART</div>
                                         </div>
                                     </div>
                                 </div>
@@ -112,8 +125,18 @@ export default class ItemDetails extends Component {
                     </div>
                     <div className='row'>
                         <div className='col-lg-12' style={{ display: 'flex', flexDirection: 'row' }}>
-                            <div style={{ margin: '15pt', color: 'gray' }}>Description</div>
-                            <div style={{ margin: '15pt', color: 'gray' }}>Return Policy</div>
+                            {
+                                this.state.infoTab.map((tab, index) => (
+                                    <div
+                                        onClick={() => this.setTab(index)}
+                                        style={{
+                                            paddingBottom:'10pt',
+                                            transition: '0.2s',
+                                            margin: '15pt', cursor: 'pointer', color: this.state.infoTabIndex === index ? "#53bab9" : "gray",
+                                            borderBottom: this.state.infoTabIndex === index ? "2px solid #53bab9" : "2px solid transparent",
+                                        }}>{tab}</div>
+                                ))
+                            }
                         </div>
 
                         {
@@ -135,9 +158,6 @@ export default class ItemDetails extends Component {
                                 </div>
 
                             </div>
-                        }
-                        {
-
                         }
                         <div>
                             <div style={{ paddingLeft: '30pt', paddingTop: '30pt', paddingRight: '30pt' }}>
