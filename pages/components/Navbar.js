@@ -5,8 +5,11 @@ import style from './Navbar.module.css'
 import Link from 'next/link'
 
 export default class Navbar extends Component {
-  constructor(){
+  constructor() {
     super();
+  }
+  openSideBar = () => {
+    document.getElementById('SideBar').style.transform = "translateX(0%)"
   }
   render() {
     return (
@@ -16,7 +19,9 @@ export default class Navbar extends Component {
         display: 'flex', justifyContent: 'space-between', alignItems: 'center'
       }}>
         <div style={{ paddingBottom: '1vh', paddingTop: '1vh' }}>
-          <div style={{ color: 'goldenrod', fontSize: '4vh' }}>Clossum</div>
+          <Link href={'/'}>
+            <div style={{ color: 'goldenrod', fontSize: '4vh',cursor:'pointer' }}>Clossum</div>
+          </Link>
         </div>
         <div style={{ display: 'flex' }}>
           <div style={{ marginLeft: '15pt', marginRight: '15pt' }}>
@@ -30,10 +35,12 @@ export default class Navbar extends Component {
               <Dropdown.Menu style={{ minWidth: '150pt' }}>
 
                 <div style={{ padding: '10pt' }}>
-                  <div style={{
-                    backgroundColor: '#53bab9', borderRadius: '5pt',
-                    textAlign: 'center', color: 'white', padding: '5pt'
-                  }}>Sign up / Sign in</div>
+                  <div
+                    onClick={this.openSideBar}
+                    style={{
+                      backgroundColor: '#53bab9', borderRadius: '5pt',
+                      textAlign: 'center', color: 'white', padding: '5pt'
+                    }}>Sign up / Sign in</div>
                   <div style={{ textAlign: 'center', fontSize: 'small', marginTop: '5pt' }}>Need help?</div>
                 </div>
                 <Dropdown.Item href='/Orders' className={style.dropDownItem}>Order</Dropdown.Item>
