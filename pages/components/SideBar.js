@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { GetEmail, GetFirstName, GetLastName, GetPassword, GetRefreshToken, GetToken, GetUsername, SetEmail, SetFirstName, SetLastName, SetPassword, SetRefreshToken, SetToken, SetUsername } from '../../lib/CookieLib';
-import { MutationP } from '../serverConfig';
+import { MutationP } from '../../lib/serverConfig';
 import styles from './SideBar.module.css';
 
 export default class SideBar extends Component {
@@ -33,11 +33,8 @@ export default class SideBar extends Component {
     CountdownInt = undefined
 
     componentDidMount() {
-        console.log("Token is");
         if (GetToken() !== "") {
             this.setState({email:GetEmail()})
-            console.log(this.state.email);
-            console.log(GetPassword());
             this.SignInUser(GetPassword())
         }
     }
@@ -182,7 +179,7 @@ export default class SideBar extends Component {
 
     render() {
         return (
-            <div className={styles.Sidebar} id="SideBar" style={{ transform: 'translateX(0%)' }}>
+            <div className={styles.Sidebar} id="SideBar" style={{ transform: 'translateX(100%)' }}>
                 <div style={{ display: 'flex', flexDirection: 'row' }}>
                     <div style={{ width: '40pt', height: '100vh', background: 'linear-gradient(#ffffff,#b4b99c)' }}>
                     </div>

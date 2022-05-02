@@ -1,12 +1,17 @@
 import style from './ItemDetails.module.css';
 import React, { Component } from 'react'
 import Image from 'next/image';
+import { withRouter } from 'next/router';
+import { QueryG } from '../../lib/serverConfig';
 
-export default class ItemDetails extends Component {
-    constructor() {
-        super()
+class ItemDetails extends Component {
+    constructor(props) {
+        super(props)
+        const { pid } = this.props.router.query;
+
         this.state = {
-            productItems: [1, 2, 3, 4, 5,],
+            pid: pid,
+            productItems: [1, 2, 3, 4, 5,], //related Items
             selectedProductIndex: 0,
             sizes: ["S", "M", "L", "XL", "2XL"],
             selectedSize: "S",
@@ -15,6 +20,27 @@ export default class ItemDetails extends Component {
             infoTabIndex: 0,
         }
     }
+
+    componentDidMount() {
+        this.setState({ pid: this.props.router.query });
+        QueryG(`{
+            products(id:"${this.state.pid}"){
+            edges{
+              node{
+                id
+                title
+              }
+            }
+          }
+        }`)
+            .then(res => {
+                console.log(res.data.data.products.edges[0]);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+
     selectSize = (size) => {
         this.setState({ selectedSize: size })
     }
@@ -77,8 +103,10 @@ export default class ItemDetails extends Component {
                                             this.state.sizes.map(size => (
                                                 <div
                                                     onClick={() => this.selectSize(size)}
-                                                    style={{ transition: '0.3s', border: `${size === this.state.selectedSize ? "2px solid #53bab9" : "1px solid rgb(197, 197, 197)"}`,
-                                                    color: `${size === this.state.selectedSize ? "#53bab9" : "rgb(197, 197, 197)"}` }}
+                                                    style={{
+                                                        transition: '0.3s', border: `${size === this.state.selectedSize ? "2px solid #53bab9" : "1px solid rgb(197, 197, 197)"}`,
+                                                        color: `${size === this.state.selectedSize ? "#53bab9" : "rgb(197, 197, 197)"}`
+                                                    }}
                                                     className={style.optionBubble}>
                                                     {size}
                                                 </div>
@@ -95,12 +123,14 @@ export default class ItemDetails extends Component {
                                         <div style={{ display: 'flex', border: '1pt solid rgb(220,220,220)', borderRadius: '5pt', cursor: 'default' }}>
                                             <div className={style.qtyBtns}
                                                 onClick={this.decrement}>-</div>
-                                            <input className={style.qtyInput} value={this.state.quantity} />
+                                            <input className={style.qtyInput} value={this.state.quantity}
+                                                onChange={(e) => this.setState({ quantity: e.target.value })}
+                                            />
                                             <div className={style.qtyBtns}
                                                 onClick={this.increment}>+</div>
                                         </div>
-                                        <div style={{ marginLeft: '30pt',display:'flex',alignItems:'center',justifyContent:'space-around' }}>
-                                           <img src='assets/chart.png' style={{height:'20pt'}}/> <div style={{marginLeft:'10pt'}}>SIZE CHART</div>
+                                        <div style={{ marginLeft: '30pt', display: 'flex', alignItems: 'center', justifyContent: 'space-around' }}>
+                                            <img src='assets/chart.png' style={{ height: '20pt' }} /> <div style={{ marginLeft: '10pt' }}>SIZE CHART</div>
                                         </div>
                                     </div>
                                 </div>
@@ -130,7 +160,7 @@ export default class ItemDetails extends Component {
                                     <div
                                         onClick={() => this.setTab(index)}
                                         style={{
-                                            paddingBottom:'10pt',
+                                            paddingBottom: '10pt',
                                             transition: '0.2s',
                                             margin: '15pt', cursor: 'pointer', color: this.state.infoTabIndex === index ? "#53bab9" : "gray",
                                             borderBottom: this.state.infoTabIndex === index ? "2px solid #53bab9" : "2px solid transparent",
@@ -190,3 +220,5 @@ export default class ItemDetails extends Component {
         )
     }
 }
+
+export default withRouter(ItemDetails)

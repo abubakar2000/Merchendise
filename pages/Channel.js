@@ -2,7 +2,7 @@ import axios from 'axios';
 import Link from 'next/link';
 import React, { Component } from 'react'
 import styles from './Channel.module.css';
-import { apiip, gqlip, QueryG } from './serverConfig';
+import { apiip, gqlip, QueryG } from '../lib/serverConfig';
 
 export default class Channel extends Component {
 
@@ -18,6 +18,7 @@ export default class Channel extends Component {
             products{
             edges{
               node{
+                id
                 title
                 price
                 image{
@@ -58,7 +59,7 @@ export default class Channel extends Component {
                     <div style={{ padding: "20pt", display: 'flex', flexDirection: 'row', flexWrap: 'wrap', }}>
                         {
                             this.state.productItems.map((item, index) => (
-                                <Link key={index} href={'/ItemDetails'}>
+                                <Link key={index} href={`/ItemDetails/${item.node.id}`}>
                                     <div className={styles.itemCard}>
                                         <div className={styles.itemContentBox}>
                                             <div style={{
