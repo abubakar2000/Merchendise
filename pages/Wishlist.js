@@ -1,17 +1,35 @@
 import React, { Component } from 'react'
-import { QueryG } from './serverConfig';
 import style from './Wishlist.module.css';
+import { QueryG } from '../lib/serverConfig'
 
 export default class Wishlist extends Component {
     constructor() {
         super()
         this.state = {
-            productItems: [1, 2, 3, 4, 5,],
+            productItems: [],
         }
+        this.loadData()
     }
 
-    componentDidMount(){
+    componentDidMount() {
+        this.loadData()
     }
+
+    loadData = () => {
+        QueryG(`{
+            whishList{
+             id
+            }
+          }`)
+            .then(res => {
+                console.log(res.data);
+                this.setState({productItems:res.data.Wishlist})
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+
     render() {
         return (
             <div>
@@ -33,7 +51,7 @@ export default class Wishlist extends Component {
                                             <div style={{ color: 'green' }}>30% OFF</div>
                                         </div>
                                     </div>
-                                    <div style={{paddingLeft:'15pt',paddingRight:'15pt'}}>
+                                    <div style={{ paddingLeft: '15pt', paddingRight: '15pt' }}>
                                         <button className='btn btn-outline-dark col-12'>Remove</button>
                                     </div>
                                 </div>
