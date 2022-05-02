@@ -1,14 +1,39 @@
+import axios from 'axios';
 import Link from 'next/link';
 import React, { Component } from 'react'
 import styles from './Channel.module.css';
+import { apiip, gqlip, QueryG } from './serverConfig';
 
 export default class Channel extends Component {
 
     constructor() {
         super()
         this.state = {
-            productItems: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+            productItems: []
         }
+    }
+
+    componentDidMount() {
+        QueryG(`{
+            products{
+            edges{
+              node{
+                title
+                price
+                image{
+                    image
+                }
+              }
+            }
+          }
+        }`)
+            .then(res => {
+                this.setState({ productItems: res.data.data.products.edges })
+                console.log(res.data.data.products.edges);
+            })
+            .catch(err => {
+                console.log(err);
+            })
     }
 
     render() {
@@ -34,14 +59,18 @@ export default class Channel extends Component {
                         {
                             this.state.productItems.map((item, index) => (
                                 <Link key={index} href={'/ItemDetails'}>
-                                    <div  className={styles.itemCard}>
+                                    <div className={styles.itemCard}>
                                         <div className={styles.itemContentBox}>
-                                            <div style={{ height: "220pt", backgroundColor: 'pink', width: '100%', }}>
-
+                                            <div style={{
+                                                height: "220pt", backgroundColor: 'pink', width: '100%',
+                                                backgroundImage: `url(${apiip}/${item.node.image[0].image})`,
+                                                backgroundPosition: 'center', backgroundRepeat: 'no-repeat',
+                                                backgroundSize: 'cover',
+                                            }}>
                                             </div>
                                             <div style={{ padding: '10pt', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '80pt', }}>
-                                                <div style={{ fontSize: '2.2vh' }}>Half sleeve T-Shirt</div>
-                                                <div><div style={{ fontSize: 'x-large', display: 'inline', fontWeight: 'bold' }}>₹400</div> <div style={{ textDecorationLine: 'line-through', fontSize: 'medium', display: 'inline', marginLeft: '10pt', color: 'gray' }}>₹400</div></div>
+                                                <div style={{ fontSize: 'x-largevh' }}>{item.node.title}</div>
+                                                <div><div style={{ fontSize: 'x-large', display: 'inline', fontWeight: 'bold' }}>₹{item.node.price}</div> <div style={{ textDecorationLine: 'line-through', fontSize: 'medium', display: 'inline', marginLeft: '10pt', color: 'gray' }}>₹400</div></div>
                                                 <div style={{ color: 'green' }}>30% OFF</div>
                                             </div>
                                         </div>

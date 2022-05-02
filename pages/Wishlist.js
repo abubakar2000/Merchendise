@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { QueryG } from './serverConfig';
 import style from './Wishlist.module.css';
 
 export default class Wishlist extends Component {
@@ -7,6 +8,9 @@ export default class Wishlist extends Component {
         this.state = {
             productItems: [1, 2, 3, 4, 5,],
         }
+    }
+
+    componentDidMount(){
     }
     render() {
         return (
