@@ -23,7 +23,7 @@ class ItemDetails extends Component {
             title: "",
             price: "",
             description: "",
-            selectedColorId:0,
+            selectedColorId: 0,
 
             productItems: [], //related Items
             infoTab: ["Description", "Return Policy"],
@@ -38,7 +38,7 @@ class ItemDetails extends Component {
         this.loadData()
     }
 
-    addToWishList= () => {
+    addToWishList = () => {
         MutationP(`mutation {
             addItemToWhishlist(productId:"${this.state.pid}"){
               whishList{
@@ -46,12 +46,12 @@ class ItemDetails extends Component {
               }
             }
           }`)
-          .then((res) => {
-              console.log(res.data);
-          })
-          .catch((err) => {
-              console.log(err);
-          })
+            .then((res) => {
+                console.log(res.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
     }
     addToBag = () => {
         MutationP(`mutation {
@@ -63,17 +63,17 @@ class ItemDetails extends Component {
               deliveryCharges
             }
           }`)
-          .then((res) => {
-              console.log(res.data);
-          })
-          .catch((err) => {
-              console.log(err);
-          })
+            .then((res) => {
+                console.log(res.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
     }
-
-    loadData = () =>{
-        let { pid } = this.props.router.query;
-        this.setState({ pid: pid });
+    loadData = () => {
+        // this.setState({ pid: this.state.pid });
+        console.log("Loading data for");
+        console.log(this.state.pid);
         QueryG(`{
             products(id:"${this.state.pid}"){ 
             edges{
@@ -113,8 +113,8 @@ class ItemDetails extends Component {
                     title: res.data.data.products.edges[0].node.title,
                     price: res.data.data.products.edges[0].node.price,
                     description: res.data.data.products.edges[0].node.description,
-                    selectedColorId:res.data.data.products.edges[0].node.colors[0].id,
-                    selectedColorIndex:0
+                    selectedColorId: res.data.data.products.edges[0].node.colors[0].id,
+                    selectedColorIndex: 0
                 })
             })
             .catch(err => {
@@ -146,10 +146,10 @@ class ItemDetails extends Component {
     selectSize = (size) => {
         this.setState({ selectedSize: size })
     }
-    selectColor = (colIndex,id) => {
-        this.setState({ 
+    selectColor = (colIndex, id) => {
+        this.setState({
             selectedColorIndex: colIndex,
-            selectedColorId:id
+            selectedColorId: id
         })
     }
     increment = () => {
@@ -165,7 +165,7 @@ class ItemDetails extends Component {
     }
     render() {
         return (
-            <div>
+            <div id="top" style={{marginTop:'2vh',marginBottom:'5vh'}}>
                 <div className='container-fluid'>
                     <div className='row'>
                         <div className='col-lg-8'>
@@ -184,7 +184,7 @@ class ItemDetails extends Component {
                             </Carousel>
                         </div>
                         <div className='col-lg-4'>
-                            <div className='container'>
+                            <div className='container' style={{marginTop:'5vh',marginBottom:'5vh'}}>
                                 <div>
                                     {this.state.title}
                                 </div>
@@ -202,7 +202,7 @@ class ItemDetails extends Component {
                                         {
                                             this.state.productColor.map((prd, index) => (
                                                 <div
-                                                    onClick={() => this.selectColor(index,prd.id)}
+                                                    onClick={() => this.selectColor(index, prd.id)}
                                                     style={{ transition: '0.3s', fontSize: 'small', color: prd.color, border: `${index === this.state.selectedColorIndex ? `2px solid ${prd.color}` : "1px solid rgb(197, 197, 197)"}` }}
                                                     className={style.optionBubble}>
                                                     {prd.color}
@@ -260,17 +260,17 @@ class ItemDetails extends Component {
                                 <div style={{ fontSize: '1.15vh', textAlign: 'center', marginTop: '5pt' }}>ENTER PIN CODE TO CHECK DELVERY TIME & PAY ON DELIVERY AVAILABILITY</div>
                                 <div style={{ display: 'flex', marginTop: '2vh' }}>
                                     <div style={{ margin: '5pt', borderRadius: '5pt', height: '30pt', border: '2px solid #53bab9', width: '30pt', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                        <Image 
-                                        onClick={this.addToWishList}
-                                        src={'/assets/heart.png'} height={'20pt'} width={'20pt'} />
+                                        <Image
+                                            onClick={this.addToWishList}
+                                            src={'/assets/heart.png'} height={'20pt'} width={'20pt'} />
                                     </div>
-                                    <button className={style.scaleable} 
-                                    onClick={this.addToBag}
-                                    style={{
-                                        margin: '5pt', borderRadius: '5pt', backgroundColor: '#53bab9', color: 'white',
-                                        height: '30pt', border: '2px solid #53bab9', display: 'flex', alignItems: 'center',
-                                        justifyContent: 'center', paddingLeft: '40pt', paddingRight: '40pt'
-                                    }}>ADD TO BAG</button>
+                                    <button className={style.scaleable}
+                                        onClick={this.addToBag}
+                                        style={{
+                                            margin: '5pt', borderRadius: '5pt', backgroundColor: '#53bab9', color: 'white',
+                                            height: '30pt', border: '2px solid #53bab9', display: 'flex', alignItems: 'center',
+                                            justifyContent: 'center', paddingLeft: '40pt', paddingRight: '40pt'
+                                        }}>ADD TO BAG</button>
                                 </div>
                             </div>
                         </div>
@@ -311,35 +311,40 @@ class ItemDetails extends Component {
 
                             </div>
                         }
-                        <div>
-                            <div style={{ paddingLeft: '30pt', paddingTop: '30pt', paddingRight: '30pt' }}>
-                                <div style={{ fontSize: '2.4vh', letterSpacing: '2pt' }}>FEATURED PRODUCTS</div>
+                        <div >
+                            <div className='container-fluid'>
+                                <div style={{ fontSize: '2.4vh', letterSpacing: '2pt',marginTop:'2vh',marginBottom:'3vh' }}>FEATURED PRODUCTS</div>
                             </div>
-                            <div>
-                                <div style={{ padding: "20pt", display: 'flex', flexDirection: 'row', flexWrap: 'wrap', }}>
+                            <div >
+                                <div className='row'>
                                     {
                                         this.state.productItems.map((item, index) => (
-                                            <Link key={index} 
-                                            href={`/ItemDetails/${item.node.id}`}>
-                                                <div 
-                                                onClick={()=>this.loadData()}
-                                                className={style.itemCard}>
-                                                    <div className={style.itemContentBox}>
-                                                        <div style={{
-                                                            height: "220pt", backgroundColor: 'pink', width: '100%',
-                                                            backgroundImage: `url(${apiip}/${item.node.image[0].image})`,
-                                                            backgroundPosition: 'center', backgroundRepeat: 'no-repeat',
-                                                            backgroundSize: 'cover',
-                                                        }}>
-                                                        </div>
-                                                        <div style={{ padding: '10pt', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '80pt', }}>
-                                                            <div style={{ fontSize: 'x-largevh' }}>{item.node.title}</div>
-                                                            <div><div style={{ fontSize: 'x-large', display: 'inline', fontWeight: 'bold' }}>₹{item.node.price}</div> <div style={{ textDecorationLine: 'line-through', fontSize: 'medium', display: 'inline', marginLeft: '10pt', color: 'gray' }}>₹400</div></div>
-                                                            <div style={{ color: 'green' }}>30% OFF</div>
-                                                        </div>
+                                            <a 
+                                                style={{textDecoration:'none',color:'gray'}}
+                                                href='#top'                                                
+                                                onClick={() => {
+                                                    this.setState({ pid: item.node.id }, () => {
+                                                        this.loadData()
+                                                    })
+                                                }}
+                                                // className={style.itemCard}
+                                                className="col-lg-2 col-md-3 col-sm-6"
+                                                >
+                                                <div className='col-12'>
+                                                    <div style={{
+                                                        height: "220pt", backgroundColor: 'pink', width: '100%',
+                                                        backgroundImage: `url(${apiip}/${item.node.image[0].image})`,
+                                                        backgroundPosition: 'center', backgroundRepeat: 'no-repeat',
+                                                        backgroundSize: 'cover',
+                                                    }}>
+                                                    </div>
+                                                    <div style={{ padding: '10pt', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '80pt', }}>
+                                                        <div style={{ fontSize: 'x-largevh' }}>{item.node.title}</div>
+                                                        <div><div style={{ fontSize: 'x-large', display: 'inline', fontWeight: 'bold' }}>₹{item.node.price}</div> <div style={{ textDecorationLine: 'line-through', fontSize: 'medium', display: 'inline', marginLeft: '10pt', color: 'gray' }}>₹400</div></div>
+                                                        <div style={{ color: 'green' }}>30% OFF</div>
                                                     </div>
                                                 </div>
-                                            </Link>
+                                            </a>
                                         ))
                                     }
                                 </div>

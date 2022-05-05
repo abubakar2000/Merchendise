@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import React, { Component } from 'react'
 // import styles from './Footer.module.css'
 
@@ -9,7 +10,7 @@ export default class Footer extends Component {
                     <div style={{
                         display: 'flex', flexDirection: 'row', justifyContent: 'space-between',
                         alignItems: 'center', minHeight: '15vh', borderBottom: '1px solid rgb(70,70,70)',
-                        marginBottom: '2vh'
+                        marginBottom: '2vh',
                     }}>
                         <img src='/assets/logo.png' style={{ height: '30pt' }} />
                         <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -23,8 +24,8 @@ export default class Footer extends Component {
                     </div>
                     <div style={{ color: 'white', marginTop: '5vh' }} className="row">
                         <div className='col-lg-3'>
-                            <div style={{ fontSize: '2.5vh', marginBottom: '20pt' }}>Subscribe to our newletter</div>
-                            <div style={{ display: 'flex', alignItems: 'center', }}>
+                            <div className='col-12' style={{ fontSize: '2.5vh', marginBottom: '20pt' }}>Subscribe to our newletter</div>
+                            <div className='col-12' style={{ display: 'flex', alignItems: 'center', }}>
                                 <style jsx>
                                     {
                                         `
@@ -33,7 +34,8 @@ export default class Footer extends Component {
                                                 border:1px solid transparent;
                                                 border-bottom:1px solid rgb(70,70,70);
                                                 color:white;
-                                                padding-left:10pt
+                                                padding-left:10pt;
+                                                width:100%;
                                             }
                                             .inputField:focus {
                                                 outline:none
@@ -55,7 +57,7 @@ export default class Footer extends Component {
                                 </button>
                             </div>
                         </div>
-                        <div className='col-lg-3' style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'center' }}>
+                        <div className='col-lg-3' style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'start',marginTop:'2vh' }}>
                             <div>
                                 <div style={{ marginBottom: '15pt' }}>Services</div>
                                 <div style={{ marginBottom: '15pt' }}>Email Marketing</div>
@@ -64,7 +66,7 @@ export default class Footer extends Component {
                                 <div style={{ marginBottom: '15pt' }}>Offline</div>
                             </div>
                         </div>
-                        <div className='col-lg-3' style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'center' }}>
+                        <div className='col-lg-3' style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'start',marginTop:'2vh' }}>
                             <div>
                                 <div style={{ marginBottom: '15pt' }}>About</div>
                                 <div style={{ marginBottom: '15pt' }}>Our Story</div>
@@ -73,7 +75,7 @@ export default class Footer extends Component {
                                 <div style={{ marginBottom: '15pt' }}>Careers</div>
                             </div>
                         </div>
-                        <div className='col-lg-3' style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'center', }}>
+                        <div className='col-lg-3' style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'start',marginTop:'2vh' }}>
                             <div>
                                 <div style={{ marginBottom: '15pt' }}>Help</div>
                                 <div style={{ marginBottom: '15pt' }}>FAQs</div>
@@ -91,9 +93,9 @@ export default class Footer extends Component {
                             </div>
                         </div>
                         <div>
-                            <img src='assets/fb.png'      style={{margin:'5pt' ,height: '30pt', }} />
-                            <img src='assets/twitter.png' style={{margin:'5pt' ,height: '30pt', }} />
-                            <img src='assets/insta.png'   style={{margin:'5pt' ,height: '30pt', }} />
+                            <Image height={"40pt"} width={"40pt"} alt="" src='/assets/fb.png'      style={{margin:'10pt' , }} />
+                            <Image height={"40pt"} width={"40pt"} alt="" src='/assets/twitter.png' style={{margin:'10pt' , }} />
+                            <Image height={"40pt"} width={"40pt"} alt="" src='/assets/insta.png'   style={{margin:'10pt' , }} />
                         </div>
                     </div>
                 </div>

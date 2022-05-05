@@ -39,48 +39,53 @@ export default class Channel extends Component {
 
     render() {
         return (
-            <div style={{}}>
-                <div className={styles.bannerContainer}>
+            <div style={{marginTop:'2vh',marginBottom:'5vh'}}>
+                <div className="container-fluid">
                     <div className={styles.Banner}>
-                        <h2 style={{ margin: '30pt' }}>YouTube channel here</h2>
+                        <h2 style={{ margin: '30pt' }}></h2>
                     </div>
                 </div>
-                <div>
+                <div className='container-fluid'>
                     <div style={{
-                        paddingLeft: '50pt', paddingRight: '50pt', marginTop: "30pt",
+                        marginTop: "30pt",
                         fontSize: '3vh', display: 'flex',
-                        justifyContent: 'space-between'
+                        justifyContent: 'space-between',marginBottom:'3vh'
                     }}>
                         <div>ALL PRODUCTS</div>
                         <div>FILTER</div>
                     </div>
                 </div>
-                <div>
-                    <div style={{ padding: "20pt", display: 'flex', flexDirection: 'row', flexWrap: 'wrap', }}>
+                <div className='container-fluid'>
+                    <div
+                        className='row'>
                         {
                             this.state.productItems.map((item, index) => (
-                                <Link key={index} href={`/ItemDetails/${item.node.id}`}>
-                                    <div className={styles.itemCard}>
-                                        <div className={styles.itemContentBox}>
-                                            <div style={{
-                                                height: "220pt", backgroundColor: 'pink', width: '100%',
-                                                backgroundImage: `url(${apiip}/${item.node.image[0].image})`,
-                                                backgroundPosition: 'center', backgroundRepeat: 'no-repeat',
-                                                backgroundSize: 'cover',
-                                            }}>
-                                            </div>
-                                            <div style={{ padding: '10pt', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '80pt', }}>
-                                                <div style={{ fontSize: 'x-largevh' }}>{item.node.title}</div>
-                                                <div><div style={{ fontSize: 'x-large', display: 'inline', fontWeight: 'bold' }}>₹{item.node.price}</div> <div style={{ textDecorationLine: 'line-through', fontSize: 'medium', display: 'inline', marginLeft: '10pt', color: 'gray' }}>₹400</div></div>
-                                                <div style={{ color: 'green' }}>30% OFF</div>
+                                <div key={index} className='col-lg-2 col-md-3 col-sm-6'>
+                                    <Link className="col-12" href={`/ItemDetails/${item.node.id}`}>
+                                        <div className={styles.itemCard}>
+                                            <div className={styles.itemContentBox}>
+                                                <div style={{
+                                                    height: "220pt", backgroundColor: 'pink', width: '100%',
+                                                    backgroundImage: `url(${apiip}/${item.node.image[0].image})`,
+                                                    backgroundPosition: 'center', backgroundRepeat: 'no-repeat',
+                                                    backgroundSize: 'cover',
+                                                }}>
+                                                </div>
+                                                <div style={{ padding: '10pt', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '80pt', }}>
+                                                    <div style={{ fontSize: 'x-largevh' }}>{item.node.title}</div>
+                                                    <div><div style={{ fontSize: 'x-large', display: 'inline', fontWeight: 'bold' }}>₹{item.node.price}</div> <div style={{ textDecorationLine: 'line-through', fontSize: 'medium', display: 'inline', marginLeft: '10pt', color: 'gray' }}>₹400</div></div>
+                                                    <div style={{ color: 'green' }}>30% OFF</div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </Link>
+                                    </Link>
+                                </div>
                             ))
                         }
                     </div>
                 </div>
+
+
             </div>
         )
     }
