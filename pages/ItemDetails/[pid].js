@@ -2,10 +2,15 @@ import style from './ItemDetails.module.css';
 import React, { Component } from 'react'
 import Image from 'next/image';
 import { withRouter } from 'next/router';
-import { apiip, MutationP, QueryG } from '../../lib/serverConfig';
+import { apiip, gqlip, MutationP, QueryG, token } from '../../lib/serverConfig';
 import { Carousel } from 'react-bootstrap';
 import Link from 'next/link';
 import { GetRefreshToken } from '../../lib/CookieLib';
+import axios from 'axios';
+import FormData from 'form-data';
+import fs from 'fs';
+import path from 'path';
+import { pid } from 'process';
 
 class ItemDetails extends Component {
     constructor(props) {
@@ -39,36 +44,74 @@ class ItemDetails extends Component {
     }
 
     addToWishList = () => {
-        MutationP(`mutation {
-            addItemToWhishlist(productId:"${this.state.pid}"){
+        var data = JSON.stringify({
+            query: `mutation{
+            addItemToWhishlist(productId:"${pid}"){
               whishList{
                 id
+                 product{
+                  edges{
+                    node{
+                      id
+                      title
+                      price
+                      image{
+                        image
+                      }
+                    }
+                  }
+                }
               }
             }
-          }`)
-            .then((res) => {
-                console.log(res.data);
+          }`,
+            variables: {}
+        });
+
+        var config = {
+            method: 'post',
+            url: gqlip,
+            headers: {
+                'Accept': '*/*',
+                'Content-Type': 'application/json',
+                'Authorization': token,
+            },
+            data: data
+        };
+
+        axios(config)
+            .then(function (response) {
+                console.log(JSON.stringify(response.data));
             })
-            .catch((err) => {
-                console.log(err);
-            })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
     addToBag = () => {
-        MutationP(`mutation {
-            addItemToCart(colorId:${this.state.selectedColorId},productId:"${this.state.pid}",quantity:${this.state.quantity}){
-              success
-              totalBill
-              itemBill
-              discountPrice
-              deliveryCharges
-            }
-          }`)
-            .then((res) => {
-                console.log(res.data);
+        var data = new FormData();
+        data.append('image', "abc");
+        data.append('query', `mutation{\n  addItemToCart(colorId: ${this.state.selectedColorId}, productId: "${this.state.pid}", quantity: ${this.state.quantity}) {\n    success\n    error\n    itemBill\n    totalBill\n    discountPrice\n    deliveryCharges\n    message\n    cart{\n      id\n      items{\n        id\n      }\n    }\n  }\n}\n\n`);
+
+        var config = {
+            method: 'post',
+            url: gqlip,
+            headers: {
+                'Accept': '*/*',
+                'Content-Type': 'application/graphql',
+                // 'Content-Transfer-Encoding': 'multipart/form-data',
+                // ...data.getHeaders()
+                'Authorization': token,
+            },
+            data: data
+        };
+
+        axios(config)
+            .then(function (response) {
+                console.log(JSON.stringify(response.data));
             })
-            .catch((err) => {
-                console.log(err);
-            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
     }
     loadData = () => {
         // this.setState({ pid: this.state.pid });
@@ -165,7 +208,7 @@ class ItemDetails extends Component {
     }
     render() {
         return (
-            <div id="top" style={{marginTop:'2vh',marginBottom:'5vh'}}>
+            <div id="top" style={{ marginTop: '2vh', marginBottom: '5vh' }}>
                 <div className='container-fluid'>
                     <div className='row'>
                         <div className='col-lg-8'>
@@ -184,7 +227,7 @@ class ItemDetails extends Component {
                             </Carousel>
                         </div>
                         <div className='col-lg-4'>
-                            <div className='container' style={{marginTop:'5vh',marginBottom:'5vh'}}>
+                            <div className='container' style={{ marginTop: '5vh', marginBottom: '5vh' }}>
                                 <div>
                                     {this.state.title}
                                 </div>
@@ -313,15 +356,15 @@ class ItemDetails extends Component {
                         }
                         <div >
                             <div className='container-fluid'>
-                                <div style={{ fontSize: '2.4vh', letterSpacing: '2pt',marginTop:'2vh',marginBottom:'3vh' }}>FEATURED PRODUCTS</div>
+                                <div style={{ fontSize: '2.4vh', letterSpacing: '2pt', marginTop: '2vh', marginBottom: '3vh' }}>FEATURED PRODUCTS</div>
                             </div>
                             <div >
                                 <div className='row'>
                                     {
                                         this.state.productItems.map((item, index) => (
-                                            <a 
-                                                style={{textDecoration:'none',color:'gray'}}
-                                                href='#top'                                                
+                                            <a
+                                                style={{ textDecoration: 'none', color: 'gray' }}
+                                                href='#top'
                                                 onClick={() => {
                                                     this.setState({ pid: item.node.id }, () => {
                                                         this.loadData()
@@ -329,7 +372,7 @@ class ItemDetails extends Component {
                                                 }}
                                                 // className={style.itemCard}
                                                 className="col-lg-2 col-md-3 col-sm-6"
-                                                >
+                                            >
                                                 <div className='col-12'>
                                                     <div style={{
                                                         height: "220pt", backgroundColor: 'pink', width: '100%',

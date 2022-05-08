@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import style from './Wishlist.module.css';
-import { QueryG } from '../lib/serverConfig'
+import { gqlip, QueryG, token } from '../lib/serverConfig'
+import axios from 'axios';
 
 export default class Wishlist extends Component {
     constructor() {
@@ -8,26 +9,59 @@ export default class Wishlist extends Component {
         this.state = {
             productItems: [],
         }
-        this.loadData()
     }
 
     componentDidMount() {
         this.loadData()
     }
 
-    loadData = () => {
-        QueryG(`{
+    loadData () {
+        var data = JSON.stringify({
+            query: `query{
             whishList{
-             id
+              id
+              user{
+                id
+              }
+              product{
+                edges{
+                  node{
+                    id
+                    image{
+                      image
+                    }
+                  }
+                }
+              }
             }
-          }`)
-            .then(res => {
-                console.log(res.data);
-                this.setState({productItems:res.data.Wishlist})
+          }`,
+            variables: {}
+        });
+
+        var config = {
+            method: 'post',
+            url: gqlip,
+            headers: {
+                'Accept': '*/*',
+                'Content-Type': 'application/json',
+                'Authorization':token,
+            },
+            data: data
+        };
+
+        axios(config)
+            .then((response) => {
+                if (response.data.data.whishList !== null) {
+                    console.log(response.data.data.whishList);
+                    this.setState({ productItems: response.data.data.whishList })
+                } else {
+                    console.log(response.data.errors);
+                }
             })
-            .catch(err => {
-                console.log(err);
-            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
     }
 
     render() {
