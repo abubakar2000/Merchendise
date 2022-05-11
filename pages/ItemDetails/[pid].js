@@ -44,6 +44,8 @@ class ItemDetails extends Component {
     }
 
     addToWishList = () => {
+
+
         var data = JSON.stringify({
             query: `mutation{
             addItemToWhishlist(productId:"${pid}"){
@@ -52,12 +54,12 @@ class ItemDetails extends Component {
                  product{
                   edges{
                     node{
-                      id
-                      title
-                      price
-                      image{
-                        image
-                      }
+                        id
+                        title
+                        price
+                        image{
+                            image
+                        }
                     }
                   }
                 }
@@ -72,8 +74,7 @@ class ItemDetails extends Component {
             url: gqlip,
             headers: {
                 'Accept': '*/*',
-                'Content-Type': 'application/json',
-                'Authorization': token,
+                'Content-Type': 'application/json'
             },
             data: data
         };

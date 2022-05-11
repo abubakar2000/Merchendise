@@ -3,6 +3,7 @@ import style from './Cart.module.css';
 import Stepper from './components/Stepper';
 import { gqlip, token } from '../lib/serverConfig'
 import axios from 'axios';
+import { GetToken } from '../lib/CookieLib';
 const CartItem = ({ title, price, image }) => {
 
     return (
@@ -18,7 +19,7 @@ const CartItem = ({ title, price, image }) => {
                             <div><div style={{ fontSize: 'x-large', display: 'inline', fontWeight: 'bold' }}>₹{price}</div> <div style={{ textDecorationLine: 'line-through', fontSize: 'medium', display: 'inline', marginLeft: '10pt', color: 'gray' }}>₹400</div> <div style={{ marginLeft: '10pt', color: 'red' }}>30% OFF</div></div>
                         </div>
                         <div>
-                            <img src='assets/close.png' style={{ height: '20pt', cursor: 'pointer' }} />
+                            {/* <img src='assets/close.png' style={{ height: '20pt', cursor: 'pointer' }} /> */}
                         </div>
                     </div>
                     <div style={{ paddinTop: '2vh', paddingBottom: '1vh' }}>
@@ -43,7 +44,7 @@ const CartItem = ({ title, price, image }) => {
                             <div>100% ORIGINAL</div>
                             <div>RETURN WITHIN 15 DAYS</div>
                         </div>
-                        <img src='assets/heart.png' style={{ height: '20pt' }} />
+                        {/* <img src='assets/heart.png' style={{ height: '20pt' }} /> */}
                     </div>
                 </div>
             </div>
@@ -55,7 +56,12 @@ export default class Cart extends Component {
     constructor() {
         super();
         this.state = {
-            cartItems: []
+            cartItems: [],
+            itemBill: 0,
+            totalBill: 0,
+            discountPrice: 0,
+            deliveryCharges: 0,
+            discountCoupendiscount: 0,
         }
     }
     componentDidMount() {
@@ -108,12 +114,54 @@ export default class Cart extends Component {
                 if (response.data.data.cart !== null) {
                     console.log(response.data.data.cart[0]);
                     console.log(response.data.data.cart[0].items);
-                    this.setState({ cartItems: response.data.data.cart[0].items })
+                    this.setState({
+                        cartItems: response.data.data.cart[0].items,
+                        itemBill: response.data.data.cart[0].itemBill,
+                        totalBill: response.data.data.cart[0].totalBill,
+                        discountPrice: response.data.data.cart[0].discountPrice,
+                        deliveryCharges: response.data.data.cart[0].deliveryCharges,
+                        discountCoupendiscount: response.data.data.cart[0].discountCoupen=== null?0:response.data.data.cart[0].discountCoupen.discount,
+                    })
                 } else {
                     console.log(response.data.errors);
                 }
             })
             .catch((error) => {
+                console.log(error);
+            });
+    }
+
+
+    deletCartItem = (id) => {
+        var data = JSON.stringify({
+            query: `mutation{
+            deleteCartItem(cartItemId:23){
+              totalBill
+              itemBill
+              discountPrice
+              deliveryCharges
+              success
+              error
+            }
+          }`,
+            variables: {}
+        });
+
+        var config = {
+            method: 'post',
+            url: gqlip,
+            headers: {
+                'Authorization': `JWT ${GetToken()}`,
+                'Content-Type': 'application/json'
+            },
+            data: data
+        };
+
+        axios(config)
+            .then(function (response) {
+                console.log(JSON.stringify(response.data));
+            })
+            .catch(function (error) {
                 console.log(error);
             });
     }
@@ -128,10 +176,14 @@ export default class Cart extends Component {
                                 <div style={{ fontSize: '3vh', letterSpacing: '2pt', marginBottom: '1vh' }}>MY BAG</div>
                                 <div style={{ height: '70vh', overflowY: 'scroll', overflowX: 'hidden', padding: '15pt', }}>
                                     {
-                                        this.state.cartItems.map(item => <CartItem
-                                            title={item.product.title}
-                                            price={item.product.price}
-                                        />)
+                                        this.state.cartItems.map(item => (
+                                            <>
+                                                <CartItem
+                                                    title={item.product.title}
+                                                    price={item.product.price}
+                                                />
+                                            </>
+                                        ))
                                     }
                                 </div>
                             </div>
@@ -141,20 +193,22 @@ export default class Cart extends Component {
                             <div className='border' style={{ borderRadius: '10pt' }}>
                                 <table style={{ width: '100%' }}>
                                     <tbody style={{ textAlign: 'start', border: '1px solid transparent' }}>
+
+
                                         <tr className={style.tableRow}>
                                             <td colspan='2'><div style={{ margin: '10pt', fontSize: '2vh', textAlign: 'center' }}>Total Price</div></td>
                                         </tr>
                                         <tr className={style.tableRow}>
-                                            <td><div style={{ margin: '10pt', fontSize: '1.8vh' }}>Items (8)</div></td>
-                                            <td><div style={{ margin: '10pt', fontSize: '1.8vh' }}>1964 INR</div></td>
+                                            <td><div style={{ margin: '10pt', fontSize: '1.8vh' }}>Items ({this.state.cartItems.length})</div></td>
+                                            <td><div style={{ margin: '10pt', fontSize: '1.8vh' }}>{this.state.totalBill} INR</div></td>
                                         </tr>
                                         <tr className={style.tableRow}>
                                             <td><div style={{ margin: '10pt', fontSize: '1.8vh' }}>Discount</div></td>
-                                            <td><div style={{ margin: '10pt', fontSize: '1.8vh' }}>569 INR</div></td>
+                                            <td><div style={{ margin: '10pt', fontSize: '1.8vh' }}>{this.state.discountPrice} INR</div></td>
                                         </tr>
                                         <tr className={style.tableRow}>
                                             <td><div style={{ margin: '10pt', fontSize: '1.8vh' }}>Delivery Charges</div></td>
-                                            <td><div style={{ margin: '10pt', fontSize: '1.8vh' }}>None</div></td>
+                                            <td><div style={{ margin: '10pt', fontSize: '1.8vh' }}>{this.state.deliveryCharges === 0 ? "None" : this.state.itemBill}</div></td>
                                         </tr>
                                         <tr className={style.tableRow}>
                                             <td><div style={{ marginLeft: '10pt', marginBottom: '20pt', fontSize: '1.8vh' }}>Apply Coupons</div></td>
@@ -165,7 +219,7 @@ export default class Cart extends Component {
                                         </tr>
                                         <tr className={style.tableRow}>
                                             <td><div style={{ margin: '10pt', fontSize: '1.8vh' }}>Coupon Discount</div></td>
-                                            <td><div style={{ margin: '10pt', fontSize: '1.8vh' }}>569 INR</div></td>
+                                            <td><div style={{ margin: '10pt', fontSize: '1.8vh' }}>{this.state.discountCoupendiscount} INR</div></td>
                                         </tr>
                                         <tr>
                                             <td colspan="2" style={{ textAlign: 'center' }}>

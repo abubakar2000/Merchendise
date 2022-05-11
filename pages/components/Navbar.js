@@ -13,16 +13,16 @@ export default class Navbar extends Component {
   }
   render() {
     return (
-      <div 
-      
-      style={{
-        paddingLeft: '30pt', paddingRight: '30pt', marginBottom: '8vh',
-        boxShadow: '0px 5px 10px rgb(220,220,220)', backgroundColor: 'white',
-        display: 'flex', justifyContent: 'space-between', alignItems: 'center'
-      }}>
+      <div
+
+        style={{
+          paddingLeft: '30pt', paddingRight: '30pt', marginBottom: '8vh',
+          boxShadow: '0px 5px 10px rgb(220,220,220)', backgroundColor: 'white',
+          display: 'flex', justifyContent: 'space-between', alignItems: 'center'
+        }}>
         <div style={{ paddingBottom: '1vh', paddingTop: '1vh' }}>
           <Link href={'/'}>
-            <div style={{ color: 'goldenrod', fontSize: '4vh',cursor:'pointer' }}>Clossum</div>
+            <div style={{ color: 'goldenrod', fontSize: '4vh', cursor: 'pointer' }}>Clossum</div>
           </Link>
         </div>
         <div style={{ display: 'flex' }}>
@@ -30,12 +30,16 @@ export default class Navbar extends Component {
             <Image src={'/assets/search.png'} height={'25pt'} width={'25pt'} />
           </div>
           <div style={{ marginLeft: '15pt', marginRight: '15pt', cursor: 'pointer' }}>
+            <Link href={'/Custom'}>
+              <Image src={'/assets/custom.png'} height={'25pt'} width={'25pt'} />
+            </Link>
+          </div>
+          <div style={{ marginLeft: '15pt', marginRight: '15pt', cursor: 'pointer' }}>
             <Dropdown>
               <Dropdown.Toggle as={'div'} id="dropdown-basic">
                 <Image src={'/assets/account.png'} height={'25pt'} width={'25pt'} />
               </Dropdown.Toggle>
               <Dropdown.Menu style={{ minWidth: '150pt' }}>
-
                 <div style={{ padding: '10pt' }}>
                   <div
                     onClick={this.openSideBar}

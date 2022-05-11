@@ -1,6 +1,7 @@
+import axios from 'axios';
 import React, { Component } from 'react'
 import { GetEmail, GetFirstName, GetLastName, GetPassword, GetRefreshToken, GetToken, GetUsername, SetEmail, SetFirstName, SetLastName, SetPassword, SetRefreshToken, SetToken, SetUsername } from '../../lib/CookieLib';
-import { MutationP } from '../../lib/serverConfig';
+import { gqlip, MutationP } from '../../lib/serverConfig';
 import styles from './SideBar.module.css';
 
 export default class SideBar extends Component {
@@ -34,7 +35,7 @@ export default class SideBar extends Component {
 
     componentDidMount() {
         if (GetToken() !== "") {
-            this.setState({email:GetEmail()})
+            this.setState({ email: GetEmail() })
             this.SignInUser(GetPassword())
         }
     }
@@ -95,21 +96,34 @@ export default class SideBar extends Component {
     SignInUser = (password) => {
         console.log(this.state.email);
         console.log(password);
-        MutationP(`mutation{
-      tokenAuth(email:"${this.state.email}",password:"${password}"){
-        success
-        errors
-        token
-        refreshToken
-        user{
-          username
-          firstName
-          lastName
-          email
-        }
-      }
-    }`)
-            .then(res => {
+
+
+        var config = {
+            method: 'post',
+            url: gqlip + "?query=" + `mutation{
+                tokenAuth(email:"${this.state.email}",password:"${password}"){
+                    success
+                    token
+                    refreshToken
+                    user {
+                      id
+                      email
+                      username
+                      firstName
+                      lastName
+                    }
+                }
+              }`,
+            headers: {
+                'Accept': '*/*',
+                'Content-Type': '*/*'
+            },
+            // data: data
+        };
+
+        axios(config)
+            .then((res) => {
+                console.log(res.data.data.tokenAuth.token);
                 if (res.data.data.tokenAuth.success === true) {
                     this.SetUserCookie(
                         res.data.data.tokenAuth.token,
@@ -127,9 +141,9 @@ export default class SideBar extends Component {
                     alert("Invalid Credentials")
                 }
             })
-            .catch(err => {
-                console.log(err);
-            })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
 
     closeSideBar = () => {

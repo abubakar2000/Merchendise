@@ -1,0 +1,49 @@
+.frontBackBtn {
+    /* background-color: #53bab9; */
+    border: 1px solid rgb(200, 200, 200);
+    color: black;
+}
+
+.frontBackBtn:hover {
+    border: 1px solid #53bab9;
+    background-color: #53bab9;
+    color: white;
+}
+
+.dropdownToggle {
+    padding-left: 10pt;
+    padding-right: 10pt;
+    padding-top: 3pt;
+    padding-bottom: 3pt;
+    border: 1px solid rgb(200, 200, 200);
+    border-radius: 50pt;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.CustomItems {
+    min-height: 25vh;
+    width: 100pt;
+    border: 1px solid #53bab9;
+    border-radius: 10pt;
+    margin-right: 15pt;
+    overflow: hidden;
+}
+
+.uploadButton {
+    width: 60%;
+    padding-top: 3pt;
+    padding-bottom: 3pt;
+    border: 1pt solid #53bab9;
+    background-color: transparent;
+    border-radius: 40pt;
+    color: #53bab9;
+    transition: 0.3s;
+}
+
+.uploadButton:hover {
+    background-color: #53bab9;
+    color: white;
+}
