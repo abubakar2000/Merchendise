@@ -9,7 +9,8 @@ export default class Channel extends Component {
     constructor() {
         super()
         this.state = {
-            productItems: []
+            productItems: [],
+            banners: []
         }
     }
 
@@ -35,21 +36,40 @@ export default class Channel extends Component {
             .catch(err => {
                 console.log(err);
             })
+        QueryG(`{
+            banner{
+                id
+                image
+              }
+        }`)
+            .then(res => {
+                // console.log(res.data.data.banner);
+                this.setState({banners:res.data.data.banner})
+                console.log(this.state.banners);
+            })
+            .catch(err => {
+                console.log(err);
+            })
     }
 
     render() {
         return (
-            <div style={{marginTop:'2vh',marginBottom:'5vh'}}>
+            <div style={{ marginTop: '2vh', marginBottom: '5vh' }}>
                 <div className="container-fluid">
-                    <div className={styles.Banner}>
-                        <h2 style={{ margin: '30pt' }}></h2>
+                    <div 
+                    style={{
+                        backgroundSize:"cover",
+                        backgroundPosition:"center",
+                        backgroundRepeat:"no-repeat",backgroundImage:`url(${apiip}${this.state.banners[0] !== undefined?this.state.banners[0].image:""})`}}
+                    className={styles.Banner}>
+                        {/* <h2 style={{ margin: '30pt' }}>{`url(${apiip}${this.state.banners[0] !== undefined?this.state.banners[0].image:""})`}</h2> */}
                     </div>
                 </div>
                 <div className='container-fluid'>
                     <div style={{
                         marginTop: "30pt",
                         fontSize: '3vh', display: 'flex',
-                        justifyContent: 'space-between',marginBottom:'3vh'
+                        justifyContent: 'space-between', marginBottom: '3vh'
                     }}>
                         <div>ALL PRODUCTS</div>
                         <div>FILTER</div>
@@ -66,7 +86,7 @@ export default class Channel extends Component {
                                             <div className={styles.itemContentBox}>
                                                 <div style={{
                                                     height: "220pt", backgroundColor: 'pink', width: '100%',
-                                                    backgroundImage: `url(${apiip}/${item.node.image[0].image})`,
+                                                    backgroundImage: `url(${apiip}${item.node.image[0].image})`,
                                                     backgroundPosition: 'center', backgroundRepeat: 'no-repeat',
                                                     backgroundSize: 'cover',
                                                 }}>

@@ -1,16 +1,15 @@
 import React, { Component, useEffect } from 'react'
 import style from './Cart.module.css';
 import Stepper from './components/Stepper';
-import { gqlip, token } from '../lib/serverConfig'
+import { apiip, gqlip, token } from '../lib/serverConfig'
 import axios from 'axios';
 import { GetToken } from '../lib/CookieLib';
 const CartItem = ({ title, price, image }) => {
-
     return (
         <div className='col-12' style={{ minHeight: '20vh', borderBottom: '1px solid rgb(220,220,220)', paddingTop: '10pt', paddingBottom: '10pt' }}>
             <div className='row'>
-                <div className='col-md-3' style={{ minHeight: '35vh', backgroundColor: 'pink' }}>
-
+                {`${apiip}/${image}`}
+                <div className='col-md-3' style={{ minHeight: '35vh', background:`url(${apiip}${image})` }}>
                 </div>
                 <div className='col-md-9' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', paddingLeft: '20pt' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignContent: 'center' }}>
@@ -62,6 +61,7 @@ export default class Cart extends Component {
             discountPrice: 0,
             deliveryCharges: 0,
             discountCoupendiscount: 0,
+            cartItemId: 0
         }
     }
     componentDidMount() {
@@ -112,15 +112,15 @@ export default class Cart extends Component {
         axios(config)
             .then((response) => {
                 if (response.data.data.cart !== null) {
-                    console.log(response.data.data.cart[0]);
-                    console.log(response.data.data.cart[0].items);
+                    console.log(response.data.data.cart);
                     this.setState({
                         cartItems: response.data.data.cart[0].items,
                         itemBill: response.data.data.cart[0].itemBill,
                         totalBill: response.data.data.cart[0].totalBill,
                         discountPrice: response.data.data.cart[0].discountPrice,
                         deliveryCharges: response.data.data.cart[0].deliveryCharges,
-                        discountCoupendiscount: response.data.data.cart[0].discountCoupen=== null?0:response.data.data.cart[0].discountCoupen.discount,
+                        discountCoupendiscount: response.data.data.cart[0].discountCoupen === null ? 0 : response.data.data.cart[0].discountCoupen.discount,
+                        cartItemId: response.data.data.cart[0].items,
                     })
                 } else {
                     console.log(response.data.errors);
@@ -177,12 +177,13 @@ export default class Cart extends Component {
                                 <div style={{ height: '70vh', overflowY: 'scroll', overflowX: 'hidden', padding: '15pt', }}>
                                     {
                                         this.state.cartItems.map(item => (
-                                            <>
+                                            <div key={item.product.title}>
                                                 <CartItem
                                                     title={item.product.title}
                                                     price={item.product.price}
+                                                    image={item.product.image[0].image}
                                                 />
-                                            </>
+                                            </div>
                                         ))
                                     }
                                 </div>

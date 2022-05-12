@@ -9,6 +9,11 @@
     background-color: #53bab9;
     color: white;
 }
+.frontBackBtnActive {
+    border: 1px solid #53bab9;
+    background-color: #53bab9;
+    color: white;
+}
 
 .dropdownToggle {
     padding-left: 10pt;
@@ -30,6 +35,8 @@
     border-radius: 10pt;
     margin-right: 15pt;
     overflow: hidden;
+    cursor: pointer;
+    padding: 10pt;
 }
 
 .uploadButton {
@@ -41,6 +48,7 @@
     border-radius: 40pt;
     color: #53bab9;
     transition: 0.3s;
+    text-align: center;
 }
 
 .uploadButton:hover {
@@ -70,4 +78,10 @@
     border: 1px solid transparent;
     border-radius: 5pt;
     width: 70%;
+}
+
+.canvas {
+    border: 1px solid gainsboro;
+    height: 50vh;
+    margin-top: 20pt;
 }
