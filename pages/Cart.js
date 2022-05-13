@@ -9,7 +9,7 @@ const CartItem = ({ title, price, image }) => {
         <div className='col-12' style={{ minHeight: '20vh', borderBottom: '1px solid rgb(220,220,220)', paddingTop: '10pt', paddingBottom: '10pt' }}>
             <div className='row'>
                 {`${apiip}/${image}`}
-                <div className='col-md-3' style={{ minHeight: '35vh', background:`url(${apiip}${image})` }}>
+                <div className='col-md-3' style={{ minHeight: '35vh', background: `url(${apiip}${image})` }}>
                 </div>
                 <div className='col-md-9' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', paddingLeft: '20pt' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignContent: 'center' }}>
@@ -197,7 +197,7 @@ export default class Cart extends Component {
 
 
                                         <tr className={style.tableRow}>
-                                            <td colspan='2'><div style={{ margin: '10pt', fontSize: '2vh', textAlign: 'center' }}>Total Price</div></td>
+                                            <td colSpan={'2'}><div style={{ margin: '10pt', fontSize: '2vh', textAlign: 'center' }}>Total Price</div></td>
                                         </tr>
                                         <tr className={style.tableRow}>
                                             <td><div style={{ margin: '10pt', fontSize: '1.8vh' }}>Items ({this.state.cartItems.length})</div></td>
@@ -223,7 +223,7 @@ export default class Cart extends Component {
                                             <td><div style={{ margin: '10pt', fontSize: '1.8vh' }}>{this.state.discountCoupendiscount} INR</div></td>
                                         </tr>
                                         <tr>
-                                            <td colspan="2" style={{ textAlign: 'center' }}>
+                                            <td colSpan={"2"} style={{ textAlign: 'center' }}>
                                                 <button style={{ margin: '10pt', backgroundColor: '#53bab9', color: 'white' }} className="btn">Proceed to Checkout</button>
                                             </td>
                                         </tr>
