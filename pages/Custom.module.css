@@ -47,27 +47,3 @@
     background-color: #53bab9;
     color: white;
 }
-
-.tryBtn {
-    padding-left: 15pt;
-    padding-right: 15pt;
-    padding-top: 3pt;
-    padding-bottom: 3pt;
-    background-color: #53bab9;
-    color: white;
-    border: 1px solid transparent;
-    border-radius: 20pt;
-    width: 50%;
-}
-
-.proceedBtn {
-    padding-left: 15pt;
-    padding-right: 15pt;
-    padding-top: 5pt;
-    padding-bottom: 5pt;
-    background-color: #53bab9;
-    color: white;
-    border: 1px solid transparent;
-    border-radius: 5pt;
-    width: 70%;
-}
