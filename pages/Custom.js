@@ -8,8 +8,8 @@ const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
     <div className={styles.dropdownToggle}
         ref={ref}
         onClick={(e) => {
-            e.preventDefault();
-            onClick(e);
+            // e.preventDefault();
+            // onClick(e);
         }}>
         <div>{children}</div>
         <div>&#x25bc;</div>
@@ -19,14 +19,14 @@ const CustomToggleColored = React.forwardRef(({ children, onClick }, ref) => (
     <div className={styles.dropdownToggle}
         ref={ref}
         onClick={(e) => {
-            e.preventDefault();
-            onClick(e);
+            // e.preventDefault();
+            // onClick(e);
         }}
     >
         <div style={{ height: '15pt', width: '15pt', backgroundColor: children, borderRadius: '8pt' }}></div>
         <div>&#x25bc;</div>
     </div>
-));
+))
 const ItemVariation = ({ path, add_image }) => {
     const [Hovered, setHovered] = useState(false)
     return (
