@@ -209,8 +209,23 @@ export default class Custom extends Component {
                                     </div>
                                 </div>
                                 <div>
+<<<<<<< HEAD
                                     <div>Add Text</div>
                                 </div>
+=======
+                                    <div style={{ fontSize: 'small', marginTop: '20pt', }}>Add Text</div>
+                                    <input style={{
+                                        paddingLeft: '10pt', paddingLeft: '15pt', paddingRight: '15pt', paddingTop: '3pt',
+                                        paddingBottom: '3pt', borderRadius: '20pt', border: '1px solid rgb(200,200,200)',
+                                    }} className="form-control" />
+                                </div>
+                                <div style={{ paddingTop: '15pt', paddingBottom: '15pt', display: 'flex', justifyContent: 'center' }}>
+                                    <button className={`${styles.tryBtn} btn text-light`}>TRY</button>
+                                </div>
+                            </div>
+                            <div style={{ display: 'flex', justifyContent: 'center',marginTop:'15pt',paddingBottom:'15pt' }}>
+                                <button className={`${styles.proceedBtn} btn text-light`}>PROCEED</button>
+>>>>>>> parent of 3f9ae0e (initi)
                             </div>
                         </div>
                     </div>

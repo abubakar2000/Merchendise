@@ -370,6 +370,7 @@
   "version" "5.3.2"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 "acorn-walk@^7.1.1":
   "integrity" "sha512-OPdCF6GsMIP+Az+aWfAAOEt2/+iVDKE7oy6lJ098aoe59oAmK76qV6Gw60SbZ8jHuG2wH058GF4pLFbYamYrVA=="
   "resolved" "https://registry.npmjs.org/acorn-walk/-/acorn-walk-7.2.0.tgz"
@@ -379,10 +380,14 @@
 =======
 "acorn@^6.0.0 || ^7.0.0 || ^8.0.0", "acorn@^8.7.0":
 >>>>>>> parent of 3f9ae0e (initi)
+=======
+"acorn@^6.0.0 || ^7.0.0 || ^8.0.0", "acorn@^8.7.0":
+>>>>>>> parent of 3f9ae0e (initi)
   "integrity" "sha512-V/LGr1APy+PXIwKebEWrkZPwoeoF+w1jiOBUmuxuiUIaOHtob8Qc9BTrYo7VuI5fR8tqsy+buA2WFooR5olqvQ=="
   "resolved" "https://registry.npmjs.org/acorn/-/acorn-8.7.0.tgz"
   "version" "8.7.0"
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 "acorn@^7.1.1":
   "integrity" "sha512-nQyp0o1/mNdbTO1PO6kHkwSrmgZ0MT/jCCpNiwbUjGoRN4dlBhqJtoQuCnEOKzgTVwg0ZWiCoQy6SxMebQVh8A=="
@@ -396,6 +401,8 @@
   dependencies:
     "debug" "4"
 
+=======
+>>>>>>> parent of 3f9ae0e (initi)
 =======
 >>>>>>> parent of 3f9ae0e (initi)
 "ajv@^6.10.0", "ajv@^6.12.4":
@@ -1020,6 +1027,7 @@
   "version" "2.0.3"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 "fabric@^4.3.1", "fabric@^5.2.1":
   "integrity" "sha512-Irltx4i+aLccWgdQj2Uvrwh/XulDAqqYMZ1bI13fAtmlxl4ggobo0t7VVYy3Ob4YEB0sCeJZKE8ExZgGo/amkw=="
   "resolved" "https://registry.npmjs.org/fabric/-/fabric-5.2.1.tgz"
@@ -1033,6 +1041,8 @@
   "resolved" "https://registry.npmjs.org/fabricjs-react/-/fabricjs-react-1.0.8.tgz"
   "version" "1.0.8"
 
+=======
+>>>>>>> parent of 3f9ae0e (initi)
 =======
 >>>>>>> parent of 3f9ae0e (initi)
 "fast-deep-equal@^3.1.1", "fast-deep-equal@^3.1.3":
@@ -1803,7 +1813,11 @@
     "warning" "^4.0.3"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 "react-dom@^17.0.1", "react-dom@^17.0.2", "react-dom@^17.0.2 || ^18.0.0-0", "react-dom@>= 16.8.0", "react-dom@>=16.14.0", "react-dom@>=16.6.0", "react-dom@18.0.0":
+=======
+"react-dom@^17.0.2", "react-dom@^17.0.2 || ^18.0.0-0", "react-dom@>= 16.8.0", "react-dom@>=16.14.0", "react-dom@>=16.6.0", "react-dom@18.0.0":
+>>>>>>> parent of 3f9ae0e (initi)
 =======
 "react-dom@^17.0.2", "react-dom@^17.0.2 || ^18.0.0-0", "react-dom@>= 16.8.0", "react-dom@>=16.14.0", "react-dom@>=16.6.0", "react-dom@18.0.0":
 >>>>>>> parent of 3f9ae0e (initi)
@@ -1846,7 +1860,11 @@
     "prop-types" "^15.6.2"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 "react@^16.8.0 || ^17.0.0-rc.1", "react@^17.0.1", "react@^17.0.2", "react@^17.0.2 || ^18.0.0-0", "react@^18.0.0", "react@>= 16.8.0", "react@>= 16.8.0 || 17.x.x || ^18.0.0-0", "react@>=0.14.0", "react@>=15.0.0", "react@>=16.14.0", "react@>=16.6.0", "react@>=16.8.0", "react@18.0.0":
+=======
+"react@^16.8.0 || ^17.0.0-rc.1", "react@^17.0.2", "react@^17.0.2 || ^18.0.0-0", "react@^18.0.0", "react@>= 16.8.0", "react@>= 16.8.0 || 17.x.x || ^18.0.0-0", "react@>=0.14.0", "react@>=15.0.0", "react@>=16.14.0", "react@>=16.6.0", "react@>=16.8.0", "react@18.0.0":
+>>>>>>> parent of 3f9ae0e (initi)
 =======
 "react@^16.8.0 || ^17.0.0-rc.1", "react@^17.0.2", "react@^17.0.2 || ^18.0.0-0", "react@^18.0.0", "react@>= 16.8.0", "react@>= 16.8.0 || 17.x.x || ^18.0.0-0", "react@>=0.14.0", "react@>=15.0.0", "react@>=16.14.0", "react@>=16.6.0", "react@>=16.8.0", "react@18.0.0":
 >>>>>>> parent of 3f9ae0e (initi)
