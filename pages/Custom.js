@@ -209,7 +209,6 @@ export default class Custom extends Component {
                                     </div>
                                 </div>
                                 <div>
-=======
                                     <div style={{ fontSize: 'small', marginTop: '20pt', }}>Add Text</div>
                                     <input style={{
                                         paddingLeft: '10pt', paddingLeft: '15pt', paddingRight: '15pt', paddingTop: '3pt',
