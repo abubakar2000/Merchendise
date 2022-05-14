@@ -209,9 +209,6 @@ export default class Custom extends Component {
                                     </div>
                                 </div>
                                 <div>
-<<<<<<< HEAD
-                                    <div>Add Text</div>
-                                </div>
 =======
                                     <div style={{ fontSize: 'small', marginTop: '20pt', }}>Add Text</div>
                                     <input style={{
@@ -225,7 +222,6 @@ export default class Custom extends Component {
                             </div>
                             <div style={{ display: 'flex', justifyContent: 'center',marginTop:'15pt',paddingBottom:'15pt' }}>
                                 <button className={`${styles.proceedBtn} btn text-light`}>PROCEED</button>
->>>>>>> parent of 3f9ae0e (initi)
                             </div>
                         </div>
                     </div>

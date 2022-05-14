@@ -46,8 +46,6 @@
 .uploadButton:hover {
     background-color: #53bab9;
     color: white;
-<<<<<<< HEAD
-=======
 }
 
 .tryBtn {
@@ -72,5 +70,4 @@
     border: 1px solid transparent;
     border-radius: 5pt;
     width: 70%;
->>>>>>> parent of 3f9ae0e (initi)
 }
