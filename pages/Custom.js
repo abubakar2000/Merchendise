@@ -12,7 +12,9 @@ const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
             onClick(e);
         }}>
         <div>{children}</div>
-        <div>&#x25bc;</div>
+        <div>
+            &#x25bc;
+        </div>
     </div>
 ));
 const CustomToggleColored = React.forwardRef(({ children, onClick }, ref) => (
@@ -224,19 +226,19 @@ const Custom = () => {
                                             </Dropdown.Toggle>
                                             <Dropdown.Menu>
                                                 <Dropdown.Item onClick={() => setTextFont("cursive")}>
-                                                    <div style={{fontFamily:"cursive"}}>{shirtText}</div>
+                                                    <div style={{ fontFamily: "cursive" }}>{shirtText}</div>
                                                 </Dropdown.Item>
                                                 <Dropdown.Item onClick={() => setTextFont("fantasy")}>
-                                                    <div style={{fontFamily:"fantasy"}}>{shirtText}</div>
+                                                    <div style={{ fontFamily: "fantasy" }}>{shirtText}</div>
                                                 </Dropdown.Item>
                                                 <Dropdown.Item onClick={() => setTextFont("monospace")}>
-                                                    <div style={{fontFamily:"monospace"}}>{shirtText}</div>
+                                                    <div style={{ fontFamily: "monospace" }}>{shirtText}</div>
                                                 </Dropdown.Item>
                                                 <Dropdown.Item onClick={() => setTextFont("sans-serif")}>
-                                                    <div style={{fontFamily:"sans-serif"}}>{shirtText}</div>
+                                                    <div style={{ fontFamily: "sans-serif" }}>{shirtText}</div>
                                                 </Dropdown.Item>
                                                 <Dropdown.Item onClick={() => setTextFont("serif")}>
-                                                    <div style={{fontFamily:"serif"}}>{shirtText}</div>
+                                                    <div style={{ fontFamily: "serif" }}>{shirtText}</div>
                                                 </Dropdown.Item>
                                             </Dropdown.Menu>
                                         </Dropdown>
@@ -359,9 +361,9 @@ const Custom = () => {
                         </div>
                         <div style={{ display: 'flex', justifyContent: 'center', marginTop: '15pt', paddingBottom: '15pt' }}>
                             <button className={`${styles.proceedBtn} btn text-light`}
-                            onClick={() => {
-                                saveCanvas()
-                            }}
+                                onClick={() => {
+                                    saveCanvas()
+                                }}
                             >PROCEED</button>
                         </div>
                     </div>

@@ -12,8 +12,7 @@ export default class Wishlist extends Component {
     }
 
     componentDidMount() {
-        this.loadData()
-    }
+        this.loadData()}
 
     loadData () {
         var data = JSON.stringify({

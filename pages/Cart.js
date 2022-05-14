@@ -4,12 +4,14 @@ import Stepper from './components/Stepper';
 import { apiip, gqlip, token } from '../lib/serverConfig'
 import axios from 'axios';
 import { GetToken } from '../lib/CookieLib';
-const CartItem = ({ title, price, image }) => {
+const CartItem = ({
+    title, price, image
+}) => {
     return (
         <div className='col-12' style={{ minHeight: '20vh', borderBottom: '1px solid rgb(220,220,220)', paddingTop: '10pt', paddingBottom: '10pt' }}>
             <div className='row'>
                 {`${apiip}/${image}`}
-                <div className='col-md-3' style={{ minHeight: '35vh', background:`url(${apiip}${image})` }}>
+                <div className='col-md-3' style={{ minHeight: '35vh', background: `url(${apiip}${image})` }}>
                 </div>
                 <div className='col-md-9' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', paddingLeft: '20pt' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignContent: 'center' }}>

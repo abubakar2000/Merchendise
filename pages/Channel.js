@@ -9,8 +9,8 @@ export default class Channel extends Component {
     constructor() {
         super()
         this.state = {
+            banners: [],
             productItems: [],
-            banners: []
         }
     }
 

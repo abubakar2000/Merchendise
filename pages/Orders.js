@@ -21,6 +21,7 @@ class OrderItem extends Component {
                   <div style={{ paddinTop: '2vh', paddingBottom: '1vh' }}>
                     <div>Size: (M)</div>
                     <div>Colour: Yellow</div>
+                    
                     <div>Qty: 4</div>
                   </div>
                   <div>
