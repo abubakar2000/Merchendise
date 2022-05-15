@@ -226,19 +226,19 @@ const Custom = () => {
                                             </Dropdown.Toggle>
                                             <Dropdown.Menu>
                                                 <Dropdown.Item onClick={() => setTextFont("cursive")}>
-                                                    <div style={{ fontFamily: "cursive" }}>{shirtText}</div>
+                                                    <div style={{ fontFamily: "cursive" }}>{shirtText===""?"cursive":shirtText}</div>
                                                 </Dropdown.Item>
                                                 <Dropdown.Item onClick={() => setTextFont("fantasy")}>
-                                                    <div style={{ fontFamily: "fantasy" }}>{shirtText}</div>
+                                                    <div style={{ fontFamily: "fantasy" }}>{shirtText===""?"fantasy":shirtText}</div>
                                                 </Dropdown.Item>
                                                 <Dropdown.Item onClick={() => setTextFont("monospace")}>
-                                                    <div style={{ fontFamily: "monospace" }}>{shirtText}</div>
+                                                    <div style={{ fontFamily: "monospace" }}>{shirtText===""?"monospace":shirtText}</div>
                                                 </Dropdown.Item>
                                                 <Dropdown.Item onClick={() => setTextFont("sans-serif")}>
-                                                    <div style={{ fontFamily: "sans-serif" }}>{shirtText}</div>
+                                                    <div style={{ fontFamily: "sans-serif" }}>{shirtText===""?"sans-serif":shirtText}</div>
                                                 </Dropdown.Item>
                                                 <Dropdown.Item onClick={() => setTextFont("serif")}>
-                                                    <div style={{ fontFamily: "serif" }}>{shirtText}</div>
+                                                    <div style={{ fontFamily: "serif" }}>{shirtText===""?"serif":shirtText}</div>
                                                 </Dropdown.Item>
                                             </Dropdown.Menu>
                                         </Dropdown>
