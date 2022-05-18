@@ -192,12 +192,10 @@ export default class Cart extends Component {
                             </div>
                         </div>
                         <div className='col-lg-3'>
-                            <Stepper />
+                            <Stepper width={'33%'}/>
                             <div className='border' style={{ borderRadius: '10pt' }}>
                                 <table style={{ width: '100%' }}>
                                     <tbody style={{ textAlign: 'start', border: '1px solid transparent' }}>
-
-
                                         <tr className={style.tableRow}>
                                             <td colspan='2'><div style={{ margin: '10pt', fontSize: '2vh', textAlign: 'center' }}>Total Price</div></td>
                                         </tr>

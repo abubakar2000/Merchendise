@@ -44,7 +44,7 @@ export default class Channel extends Component {
         }`)
             .then(res => {
                 // console.log(res.data.data.banner);
-                this.setState({banners:res.data.data.banner})
+                this.setState({ banners: res.data.data.banner })
                 console.log(this.state.banners);
             })
             .catch(err => {
@@ -54,14 +54,16 @@ export default class Channel extends Component {
 
     render() {
         return (
-            <div style={{ marginTop: '2vh', marginBottom: '5vh' }}>
+            <div style={{ marginBottom: '5vh', paddingLeft: '20px', paddingRight: '20px', paddingTop: '15px' }}>
                 <div className="container-fluid">
-                    <div 
-                    style={{
-                        backgroundSize:"cover",
-                        backgroundPosition:"center",
-                        backgroundRepeat:"no-repeat",backgroundImage:`url(${apiip}${this.state.banners[0] !== undefined?this.state.banners[0].image:""})`}}
-                    className={styles.Banner}>
+                    <div
+                        style={{
+                            backgroundSize: "cover",
+                            backgroundPosition: "center",
+                            backgroundRepeat: "no-repeat",
+                            backgroundImage: `url(${apiip}${this.state.banners[0] !== undefined ? this.state.banners[0].image : ""})`,
+                        }}
+                        className={styles.Banner}>
                         {/* <h2 style={{ margin: '30pt' }}>{`url(${apiip}${this.state.banners[0] !== undefined?this.state.banners[0].image:""})`}</h2> */}
                     </div>
                 </div>
@@ -80,7 +82,7 @@ export default class Channel extends Component {
                         className='row'>
                         {
                             this.state.productItems.map((item, index) => (
-                                <div key={index} className='col-lg-2 col-md-3 col-sm-6'>
+                                <div key={index} className='col-lg-2 col-md-6 col-6'>
                                     <Link className="col-12" href={`/ItemDetails/${item.node.id}`}>
                                         <div className={styles.itemCard}>
                                             <div className={styles.itemContentBox}>

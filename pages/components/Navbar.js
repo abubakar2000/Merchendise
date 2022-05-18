@@ -14,9 +14,8 @@ export default class Navbar extends Component {
   render() {
     return (
       <div
-
         style={{
-          paddingLeft: '30pt', paddingRight: '30pt', marginBottom: '8vh',
+          paddingLeft: '30pt', paddingRight: '30pt', marginBottom: '2vh',
           boxShadow: '0px 5px 10px rgb(220,220,220)', backgroundColor: 'white',
           display: 'flex', justifyContent: 'space-between', alignItems: 'center'
         }}>

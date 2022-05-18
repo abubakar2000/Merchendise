@@ -12,9 +12,10 @@ export default class Wishlist extends Component {
     }
 
     componentDidMount() {
-        this.loadData()}
+        this.loadData()
+    }
 
-    loadData () {
+    loadData() {
         var data = JSON.stringify({
             query: `query{
             whishList{
@@ -43,7 +44,7 @@ export default class Wishlist extends Component {
             headers: {
                 'Accept': '*/*',
                 'Content-Type': 'application/json',
-                'Authorization':token,
+                'Authorization': token,
             },
             data: data
         };
@@ -69,11 +70,11 @@ export default class Wishlist extends Component {
                 <div style={{ paddingLeft: '30pt', paddingTop: '30pt', paddingRight: '30pt' }}>
                     <div style={{ fontSize: '2.4vh', letterSpacing: '2pt' }}>Wish List</div>
                 </div>
-                <div>
-                    <div style={{ padding: "20pt", display: 'flex', flexDirection: 'row', flexWrap: 'wrap', }}>
+                <div className='container-fluid'>
+                    <div className='row'>
                         {
                             this.state.productItems.map((item, index) => (
-                                <div key={index} className={style.itemCard}>
+                                <div key={index} className="col-lg-2 col-md-6 col-6">
                                     <div className={style.itemContentBox}>
                                         <div style={{ height: "220pt", backgroundColor: 'pink', width: '100%', }}>
 
