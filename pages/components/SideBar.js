@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { Component } from 'react'
 import { GetEmail, GetFirstName, GetLastName, GetPassword, GetRefreshToken, GetToken, GetUsername, SetEmail, SetFirstName, SetLastName, SetPassword, SetRefreshToken, SetToken, SetUsername } from '../../lib/CookieLib';
-import { gqlip, MutationP } from '../../lib/serverConfig';
+import { gqlip, MutationP, RefreshToken_Lib } from '../../lib/serverConfig';
 import styles from './SideBar.module.css';
 
 export default class SideBar extends Component {
@@ -18,7 +18,6 @@ export default class SideBar extends Component {
             lastname: "",
             password: "admin",
             username: "",
-
             OTPone: "",
             OTPtwo: "",
             OTPthree: "",
@@ -144,6 +143,10 @@ export default class SideBar extends Component {
             .catch(function (error) {
                 console.log(error);
             });
+    }
+
+    RefreshToken = () => {
+        RefreshToken_Lib(GetEmail(), GetPassword());
     }
 
     closeSideBar = () => {

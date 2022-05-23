@@ -2,10 +2,10 @@ import style from './ItemDetails.module.css';
 import React, { Component } from 'react'
 import Image from 'next/image';
 import { withRouter } from 'next/router';
-import { apiip, gqlip, MutationP, QueryG, token } from '../../lib/serverConfig';
+import { apiip, gqlip, MutationP, QueryG, RefreshToken_Lib, token } from '../../lib/serverConfig';
 import { Carousel } from 'react-bootstrap';
 import Link from 'next/link';
-import { GetRefreshToken } from '../../lib/CookieLib';
+import { GetEmail, GetPassword, GetRefreshToken } from '../../lib/CookieLib';
 import axios from 'axios';
 import FormData from 'form-data';
 import fs from 'fs';
@@ -23,7 +23,7 @@ class ItemDetails extends Component {
             selectedColorIndex: 0,
             sizes: ["S", "M", "L", "XL", "2XL"],
             selectedSize: "S",
-            quantity: 0,
+            quantity: 1,
             images: ['/assets/heart.png'],
             title: "",
             price: "",
@@ -44,7 +44,6 @@ class ItemDetails extends Component {
     }
 
     addToWishList = () => {
-
 
         var data = JSON.stringify({
             query: `mutation{
@@ -88,12 +87,14 @@ class ItemDetails extends Component {
             });
     }
     addToBag = () => {
+        RefreshToken_Lib(GetEmail(), GetPassword()).then(() => {
+            console.log("Updated Refresh Token");
+        });
         var data = new FormData();
         data.append('image', "abc");
         data.append('query', `mutation{\n  addItemToCart(colorId: ${this.state.selectedColorId}, productId: "${this.state.pid}", quantity: ${this.state.quantity}) {\n    success\n    error\n    itemBill\n    totalBill\n    discountPrice\n    deliveryCharges\n    message\n    cart{\n      id\n      items{\n        id\n      }\n    }\n  }\n}\n\n`);
 
         var config = {
-            method: 'post',
             url: gqlip,
             headers: {
                 'Accept': '*/*',
@@ -105,7 +106,7 @@ class ItemDetails extends Component {
             data: data
         };
 
-        axios(config)
+        axios.post(config.url, config.data, { headers: config.headers })
             .then(function (response) {
                 console.log(response.data);
             })
@@ -200,7 +201,7 @@ class ItemDetails extends Component {
         this.setState({ quantity: this.state.quantity + 1 })
     }
     decrement = () => {
-        if (this.state.quantity !== 0) {
+        if (this.state.quantity !== 1) {
             this.setState({ quantity: this.state.quantity - 1 })
         }
     }
@@ -298,7 +299,7 @@ class ItemDetails extends Component {
                                 </div>
                                 <div style={{ marginTop: '20pt', display: 'flex', }}>
                                     <input className={style.FormInputPinCode}
-                                        placeholder="Enter Country Code" />
+                                        placeholder="Enter Pin Code" />
                                     <button className={style.FormInputPinCodeBtn}>Check</button>
                                 </div>
                                 <div style={{ fontSize: '1.15vh', textAlign: 'center', marginTop: '5pt' }}>ENTER PIN CODE TO CHECK DELVERY TIME & PAY ON DELIVERY AVAILABILITY</div>
@@ -339,7 +340,7 @@ class ItemDetails extends Component {
                             <div style={{ padding: '40pt' }}>
                                 <div style={{ fontSize: '2.5vh' }}>Return Policy</div>
                                 <ul>
-                                    <li style={{ margin: '5pt', fontSize: '2.2vh', color: 'gray' }}>100% Cottom</li>
+                                    <li style={{ margin: '5pt', fontSize: '2.2vh', color: 'gray' }}>100% Cotton</li>
                                     <li style={{ margin: '5pt', fontSize: '2.2vh', color: 'gray' }}>Made In India</li>
                                 </ul>
                                 <div>

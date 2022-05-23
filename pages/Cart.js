@@ -1,16 +1,56 @@
 import React, { Component, useEffect } from 'react'
 import style from './Cart.module.css';
 import Stepper from './components/Stepper';
-import { apiip, gqlip, token } from '../lib/serverConfig'
+import { apiip, gqlip, RefreshToken_Lib, token } from '../lib/serverConfig'
 import axios from 'axios';
-import { GetToken } from '../lib/CookieLib';
+import { GetEmail, GetPassword, GetRefreshToken, GetToken, } from '../lib/CookieLib';
 const CartItem = ({
-    title, price, image
+    title, price, image, pid
 }) => {
+    const RemoveProduct = (id) => {
+        RefreshToken_Lib(GetEmail(), GetPassword()).then(_ => {
+            console.log("Token Updated");
+            var config = {
+                url: gqlip,
+                headers: {
+                    'Content-Type': '*/*',
+                    'Authorization': token,
+                },
+            };
+
+            fetch(gqlip, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization':token
+                },
+                body: JSON.stringify({
+                    query: `mutation{deleteCartItem(cartItemId:"${id}"){totalBill itemBill discountPrice deliveryCharges success error } }`,
+                }),
+            })
+                .then((res) => res.json())
+                .then((result) => console.log(result));
+
+
+            // Previous code
+            // axios.post(config.url, {
+            //     query: `mutation{deleteCartItem(cartItemId:${id}){totalBill itemBill discountPrice deliveryCharges success error } }`
+            // }, { headers: config.headers })
+            //     .then(function (response) {
+            //         console.log("Success");
+            //         console.log(response.data);
+            //     })
+            //     .catch(function (error) {
+            //         console.log("Error");
+            //         console.log(error);
+            //     });
+        });
+    }
+
     return (
         <div className='col-12' style={{ minHeight: '20vh', borderBottom: '1px solid rgb(220,220,220)', paddingTop: '10pt', paddingBottom: '10pt' }}>
             <div className='row'>
-                {`${apiip}/${image}`}
+                {/* {`${apiip}${image}`} */}
                 <div className='col-md-3' style={{ minHeight: '35vh', background: `url(${apiip}${image})` }}>
                 </div>
                 <div className='col-md-9' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', paddingLeft: '20pt' }}>
@@ -20,7 +60,11 @@ const CartItem = ({
                             <div><div style={{ fontSize: 'x-large', display: 'inline', fontWeight: 'bold' }}>₹{price}</div> <div style={{ textDecorationLine: 'line-through', fontSize: 'medium', display: 'inline', marginLeft: '10pt', color: 'gray' }}>₹400</div> <div style={{ marginLeft: '10pt', color: 'red' }}>30% OFF</div></div>
                         </div>
                         <div>
-                            {/* <img src='assets/close.png' style={{ height: '20pt', cursor: 'pointer' }} /> */}
+                            <img src='assets/close.png'
+                                onClick={() => {
+                                    RemoveProduct(pid)
+                                }}
+                                style={{ height: '20pt', cursor: 'pointer' }} />
                         </div>
                     </div>
                     <div style={{ paddinTop: '2vh', paddingBottom: '1vh' }}>
@@ -71,6 +115,10 @@ export default class Cart extends Component {
 
     }
     getCartItem() {
+        RefreshToken_Lib(GetEmail(), GetPassword())
+            .then(() => {
+                console.log("Token Updated");
+            })
         var data = JSON.stringify({
             query: `query{
             cart{
@@ -109,7 +157,6 @@ export default class Cart extends Component {
             },
             data: data
         };
-        // this.setState({ cart: response.data.data.cart }, () => {
 
         axios(config)
             .then((response) => {
@@ -122,48 +169,12 @@ export default class Cart extends Component {
                         discountPrice: response.data.data.cart[0].discountPrice,
                         deliveryCharges: response.data.data.cart[0].deliveryCharges,
                         discountCoupendiscount: response.data.data.cart[0].discountCoupen === null ? 0 : response.data.data.cart[0].discountCoupen.discount,
-                        cartItemId: response.data.data.cart[0].items,
                     })
                 } else {
                     console.log(response.data.errors);
                 }
             })
             .catch((error) => {
-                console.log(error);
-            });
-    }
-
-
-    deletCartItem = (id) => {
-        var data = JSON.stringify({
-            query: `mutation{
-            deleteCartItem(cartItemId:23){
-              totalBill
-              itemBill
-              discountPrice
-              deliveryCharges
-              success
-              error
-            }
-          }`,
-            variables: {}
-        });
-
-        var config = {
-            method: 'post',
-            url: gqlip,
-            headers: {
-                'Authorization': `JWT ${GetToken()}`,
-                'Content-Type': 'application/json'
-            },
-            data: data
-        };
-
-        axios(config)
-            .then(function (response) {
-                console.log(JSON.stringify(response.data));
-            })
-            .catch(function (error) {
                 console.log(error);
             });
     }
@@ -184,6 +195,7 @@ export default class Cart extends Component {
                                                     title={item.product.title}
                                                     price={item.product.price}
                                                     image={item.product.image[0].image}
+                                                    pid={item.product.id}
                                                 />
                                             </div>
                                         ))
@@ -192,7 +204,7 @@ export default class Cart extends Component {
                             </div>
                         </div>
                         <div className='col-lg-3'>
-                            <Stepper width={'33%'}/>
+                            <Stepper width={'33%'} />
                             <div className='border' style={{ borderRadius: '10pt' }}>
                                 <table style={{ width: '100%' }}>
                                     <tbody style={{ textAlign: 'start', border: '1px solid transparent' }}>
@@ -214,7 +226,7 @@ export default class Cart extends Component {
                                         <tr className={style.tableRow}>
                                             <td><div style={{ marginLeft: '10pt', marginBottom: '20pt', fontSize: '1.8vh' }}>Apply Coupons</div></td>
                                             <td><div style={{ margin: '10pt', fontSize: '1.8vh' }}>
-                                                <input style={{ border: '1px solid #53bab9', borderRadius: '5pt' }} />
+                                                <input style={{ border: '1px solid #53bab9', borderRadius: '5pt', width: '100%' }} />
                                                 <div style={{ fontSize: '1.5vh', cursor: 'pointer', textAlign: 'end', marginTop: '5pt', marginRight: '10pt' }}>Browse Coupons</div>
                                             </div></td>
                                         </tr>

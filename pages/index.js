@@ -1,10 +1,10 @@
-import Channel from "./Channel";
+import HomePage from "./HomePage";
 
 export default function Home() {
   return (
     <div>
-      <Channel />
-      
+      {/* <Channel /> */}
+      <HomePage />
     </div>
   )
 }
