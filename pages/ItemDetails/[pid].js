@@ -44,7 +44,9 @@ class ItemDetails extends Component {
     }
 
     addToWishList = () => {
-
+        RefreshToken_Lib(GetEmail(), GetPassword()).then(() => {
+            console.log("Updated Refresh Token");
+        });
         var data = JSON.stringify({
             query: `mutation{
             addItemToWhishlist(productId:"${pid}"){
@@ -53,12 +55,8 @@ class ItemDetails extends Component {
                  product{
                   edges{
                     node{
-                        id
-                        title
-                        price
-                        image{
-                            image
-                        }
+                      id
+                      title
                     }
                   }
                 }
@@ -73,12 +71,14 @@ class ItemDetails extends Component {
             url: gqlip,
             headers: {
                 'Accept': '*/*',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
             data: data
         };
 
-        axios(config)
+        axios.post(config.url, config.data, {
+            headers: config.headers
+        })
             .then(function (response) {
                 console.log(JSON.stringify(response.data));
             })
@@ -109,6 +109,7 @@ class ItemDetails extends Component {
         axios.post(config.url, config.data, { headers: config.headers })
             .then(function (response) {
                 console.log(response.data);
+                window.location.href = "/Cart"
             })
             .catch(function (error) {
                 console.log(error);

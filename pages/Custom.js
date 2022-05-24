@@ -30,7 +30,7 @@ const CustomToggleColored = React.forwardRef(({ children, onClick }, ref) => (
         <div>&#x25bc;</div>
     </div>
 ));
-const ItemVariation = ({ path, add_image }) => {
+const ItemVariation = ({ title, path, add_image }) => {
     const [Hovered, setHovered] = useState(false)
     return (
         <div className={styles.CustomItems}
@@ -42,13 +42,16 @@ const ItemVariation = ({ path, add_image }) => {
                 setHovered(false)
             }}>
             <>
-                <div style={{ transition: '0.5s', height: Hovered !== false ? '0pt' : '70%', width: '100%', background: `url(${path})`, backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>
+                <div style={{
+                    transition: '0.5s', height: Hovered !== false ? '0pt' : '70%', width: '100%', background: `url(${path})`,
+                    backgroundSize: 'contain', backgroundRepeat: 'no-repeat',
+                }}>
                 </div>
                 <div style={{
                     height: Hovered !== false ? '0pt' : '30%', width: "100%", display: 'flex', flexDirection: 'column',
                     justifyContent: 'center', alignItems: 'center', overflow: 'hidden'
                 }}>
-                    <div style={{ fontSize: 'small' }}>Regular Quality</div>
+                    <div style={{ fontSize: 'small' }}>{title}</div>
                     <div style={{ fontSize: 'medium' }}>₹400 - ₹599</div>
                 </div>
             </>
@@ -256,7 +259,7 @@ const Custom = () => {
                                         <Dropdown.Item>
                                             <div style={{ display: 'flex', }} onClick={() => {
                                                 setActiveShirtColor('Yellow')
-                                                add_image(`assets/FrontBack/${Front === true ? 'Front' : 'Back'}Pink.png`)
+                                                add_image(`assets/FrontBack/${Front === true ? 'Front' : 'Back'}Yellow.png`)
                                             }}>
                                                 <div style={{ height: '15pt', width: '15pt', backgroundColor: 'yellow', borderRadius: '8pt' }}></div>
                                                 <div style={{ marginLeft: '10pt' }}>Yellow</div>
@@ -267,10 +270,10 @@ const Custom = () => {
                             </div>
                         </div>
                         <div style={{ padding: '15pt', display: 'flex', }}>
-                            <ItemVariation title={"Regular Quality"} path={'assets/FrontBack/FrontWhite.png'} />
-                            <ItemVariation title={""} path={'assets/custom/shirt_green.png'} />
-                            <ItemVariation title={""} path={'assets/custom/shirt_green.png'} />
-                            <ItemVariation title={""} path={'assets/custom/shirt_green.png'} />
+                            <ItemVariation title={"Regular Quality"} path={`assets/FrontBack/${'FrontWhite'}.png`} />
+                            <ItemVariation title={"Good Quality"} path={`assets/FrontBack/${'FrontWhite'}.png`} />
+                            <ItemVariation title={"Summer Quality"} path={`assets/FrontBack/${'FrontWhite'}.png`} />
+                            <ItemVariation title={"Polo Quality"} path={`assets/FrontBack/${'FrontWhite'}.png`} />
                         </div>
                     </div>
                     <div style={{ paddingTop: '10pt', paddingBottom: '10pt' }} className='col-md-3'>

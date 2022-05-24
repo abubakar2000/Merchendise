@@ -16,11 +16,14 @@
     "fabricjs-react": "^1.0.8",
     "form-data": "^4.0.0",
     "fs": "^0.0.1-security",
+    "net": "^1.0.2",
     "next": "12.1.5",
+    "paytm-pg-node-sdk": "^1.0.4",
     "react": "18.0.0",
     "react-bootstrap": "^2.3.0",
     "react-dom": "18.0.0",
-    "react-loader-spinner": "^6.0.0-0"
+    "react-loader-spinner": "^6.0.0-0",
+    "tls": "^0.0.1"
   },
   "devDependencies": {
     "eslint": "8.14.0",

@@ -26,7 +26,7 @@ export default class SideBar extends Component {
             EmailVerifiedForSignUp: false,
             Signup: true,
 
-            isLoggedIn: true,
+            isLoggedIn: false,
         }
     }
 
@@ -36,6 +36,10 @@ export default class SideBar extends Component {
         if (GetToken() !== "") {
             this.setState({ email: GetEmail() })
             this.SignInUser(GetPassword())
+            console.log("----");
+            console.log(GetPassword());
+            console.log(GetEmail());
+            console.log("----");
         }
     }
 
